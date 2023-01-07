@@ -1,5 +1,5 @@
 def runServer() {
-  sh 'docker run --name fordastore-cors --network fordastore --network-alias web -p 80:80 -d splitscale/fordastore-cors:latest'
+  sh 'docker run --name fordastore-cors --network fordastore --network-alias fordastore-cors -p 80:80 -d splitscale/fordastore-cors:latest'
 }
 
 pipeline {
