@@ -11,7 +11,7 @@ pipeline {
 
         stage('build docker image') {
       steps {
-        sh 'docker build -t fordastore-cors:latest .'
+        sh 'docker build -t kasutu/fordastore-cors:latest .'
       }
         }
 
