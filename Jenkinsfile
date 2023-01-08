@@ -1,6 +1,3 @@
-def runServer() {
-  sh 'docker run --name fordastore-cors --network fordastore --network-alias fordastore-cors -p 80:80 -d splitscale/fordastore-cors:latest'
-}
 
 pipeline {
     agent any
@@ -8,26 +5,24 @@ pipeline {
     stages {
         stage('pull') {
       steps {
-        checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/splitscale/fordastore-cors.git']]])
+        checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/kasutu/fordastore-cors.git']]])
       }
         }
 
         stage('build docker image') {
       steps {
-        sh 'docker build -t splitscale/fordastore-cors:latest .'
+        sh 'docker build -t fordastore-cors:latest .'
       }
         }
 
         stage('deploy') {
           steps {
             script {
-              try {
-            runServer()
-               } catch (Exception e) {
-            sh 'docker stop fordastore-cors'
-            sh 'docker rm fordastore-cors'
-            runServer()
+              withCredentials([usernamePassword(credentialsId: 'docker-pwd', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+                sh "docker login -u ${USERNAME} -p ${PASSWORD}"
               }
+
+              sh "docker push kasutu/fordastore-cors:latest"
             }
           }
         }
