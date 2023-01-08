@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('pull') {
       steps {
-        checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/kasutu/fordastore-cors.git']]])
+        checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/splitscale/fordastore-cors.git']]])
       }
         }
 
