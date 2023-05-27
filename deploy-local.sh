@@ -1,9 +1,9 @@
 #!/bin/bash
 
-docker stop fordastore-cors
+docker stop proxcors
 
-docker rm fordastore-cors
+docker rm proxcors
 
-docker build -t kasutu/fordastore-cors:latest .
+docker build -t kasutu/proxcors:latest .
 
-docker run --name fordastore-cors -p 8888:80 -d kasutu/fordastore-cors:latest
+docker run --name proxcors -p 8888:80 -d kasutu/proxcors:latest
